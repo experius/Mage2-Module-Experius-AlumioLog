@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">experius_alumiolog_tasklog_listing.experius_alumiolog_tasklog_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>experius_alumiolog_tasklog_columns</spinner>
+		<deps>
+			<dep>experius_alumiolog_tasklog_listing.experius_alumiolog_tasklog_listing_data_source</dep>
+		</deps>
+        <buttons>
+            <button name="sync">
+                <url path="*/*/sync"/>
+                <class>primary</class>
+                <label translate="true">Sync new Task Logs</label>
+            </button>
+        </buttons>
+	</settings>
+	<dataSource name="experius_alumiolog_tasklog_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">tasklog_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Experius_AlumioLog::TaskLog</aclResource>
+		<dataProvider name="experius_alumiolog_tasklog_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>tasklog_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="experius_alumiolog_tasklog_columns">
+		<settings>
+			<editorConfig>
+				<param name="enabled" xsi:type="boolean">false</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">experius_alumiolog_tasklog_listing.experius_alumiolog_tasklog_listing.experius_alumiolog_tasklog_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>tasklog_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="tasklog_id" sortOrder="10">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="entity_type" sortOrder="20">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Entity Type</label>
+			</settings>
+		</column>
+		<column name="entity_identifier" sortOrder="30">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Entity Identifier</label>
+			</settings>
+		</column>
+		<column name="route" sortOrder="40">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Route</label>
+			</settings>
+		</column>
+		<column name="status" sortOrder="50" component="Magento_Ui/js/grid/columns/select">
+			<settings>
+				<filter>select</filter>
+                <dataType>select</dataType>
+                <visible>true</visible>
+				<label translate="true">Status</label>
+                <options>
+                    <option name="new" xsi:type="array">
+                        <item name="value" xsi:type="string">new</item>
+                        <item name="label" xsi:type="string">New</item>
+                    </option>
+                    <option name="finished" xsi:type="array">
+                        <item name="value" xsi:type="string">finished</item>
+                        <item name="label" xsi:type="string">Finished</item>
+                    </option>
+                    <option name="processing" xsi:type="array">
+                        <item name="value" xsi:type="string">processing</item>
+                        <item name="label" xsi:type="string">Processing</item>
+                    </option>
+                    <option name="failed" xsi:type="array">
+                        <item name="value" xsi:type="string">failed</item>
+                        <item name="label" xsi:type="string">Failed</item>
+                    </option>
+                    <option name="skipped" xsi:type="array">
+                        <item name="value" xsi:type="string">skipped</item>
+                        <item name="label" xsi:type="string">Skipped</item>
+                    </option>
+                </options>
+			</settings>
+		</column>
+		<column name="created_at" sortOrder="60">
+			<settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <dateFormat>yyyy-MM-dd hh:mm:ss</dateFormat>
+                <timezone>false</timezone>
+				<label translate="true">Created At</label>
+			</settings>
+		</column>
+		<column name="updated_at" sortOrder="70">
+			<settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <dateFormat>yyyy-MM-dd hh:mm:ss</dateFormat>
+                <timezone>false</timezone>
+				<label translate="true">Updated At</label>
+			</settings>
+		</column>
+        <actionsColumn name="actions" class="Experius\AlumioLog\Ui\Component\Listing\Column\TaskLogActions" sortOrder="80">
+            <settings>
+                <indexField>tasklog_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+	</columns>
+</listing>

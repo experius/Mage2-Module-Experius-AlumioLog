@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">experius_alumiolog_tasklog_form.tasklog_form_data_source</item>
+		</item>
+		<item name="label" xsi:type="string" translate="true">General Information</item>
+	</argument>
+	<settings>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+		<buttons>
+			<button name="back" class="Experius\AlumioLog\Block\Adminhtml\TaskLog\View\BackButton"/>
+		</buttons>
+		<namespace>experius_alumiolog_tasklog_form</namespace>
+		<dataScope>data</dataScope>
+		<deps>
+			<dep>experius_alumiolog_tasklog_form.tasklog_form_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="tasklog_form_data_source">
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+			</item>
+		</argument>
+		<settings>
+			<submitUrl path="*/*/save"/>
+		</settings>
+		<dataProvider name="tasklog_form_data_source" class="Experius\AlumioLog\Model\TaskLog\DataProvider">
+			<settings>
+				<requestFieldName>entity_id</requestFieldName>
+				<primaryFieldName>entity_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<fieldset name="basic">
+		<settings>
+			<label>Basic</label>
+		</settings>
+        <field name="tasklog_id" formElement="input" sortOrder="10">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Task Identifier</label>
+                <imports>
+                    <link name="value">${ $.provider }:data.basic.tasklog_id</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="entity_type" formElement="input" sortOrder="20">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Entity Type</label>
+                <imports>
+                    <link name="value">${ $.provider }:data.basic.entity_type</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="entity_identifier" formElement="input" sortOrder="30">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Entity Identifier</label>
+                <imports>
+                    <link name="value">${ $.provider }:data.basic.entity_identifier</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="route" formElement="input" sortOrder="40">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Route</label>
+                <imports>
+                    <link name="value">${ $.provider }:data.basic.route</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="status" formElement="input" sortOrder="50">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Status</label>
+                <imports>
+                    <link name="value">${ $.provider }:data.basic.status</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="created_at" formElement="input" sortOrder="60">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Created At</label>
+                <imports>
+                    <link name="value">${ $.provider }:data.basic.created_at</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="updated_at" formElement="input" sortOrder="70">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Updated At</label>
+                <imports>
+                    <link name="value">${ $.provider }:data.basic.updated_at</link>
+                </imports>
+            </settings>
+        </field>
+	</fieldset>
+    <fieldset name="import_log">
+        <settings>
+            <label>Import Logs</label>
+        </settings>
+        <htmlContent name="import_log">
+            <block class="Experius\AlumioLog\Block\Adminhtml\TaskLog\View\ImportLog" name="import_log_tab_view" template="Experius_AlumioLog::sub-logs.phtml" />
+        </htmlContent>
+    </fieldset>
+    <fieldset name="export_log">
+        <settings>
+            <label>Export Logs</label>
+        </settings>
+        <htmlContent name="export_log">
+            <block class="Experius\AlumioLog\Block\Adminhtml\TaskLog\View\ExportLog" name="export_log_tab_view" template="Experius_AlumioLog::sub-logs.phtml" />
+        </htmlContent>
+    </fieldset>
+</form>

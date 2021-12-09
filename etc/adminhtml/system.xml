@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="experius" translate="label" sortOrder="999">
+            <label>Experius</label>
+        </tab>
+        <section id="alumiolog" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>Alumio Log</label>
+            <tab>experius</tab>
+            <resource>Experius_AlumioLog::config_experius_alumiolog</resource>
+            <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>General</label>
+                <field id="is_enabled" type="select" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
+                    <label>Is Enabled</label>
+                    <comment/>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="webservice_url" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Alumio Webservice URL</label>
+                    <comment>Like https://uat.example.alumio.com/api/v1/. IMPORTANT: Do not forget the trailing slash!</comment>
+                </field>
+                <field id="webservice_bearer_token" type="obscure" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Webservice Bearer Token</label>
+                    <comment>Unique token for Alumio RestAPI. NOTE: this value resets after saving this configuration page. It is suggested to set this value in your app/etc/config.php or via bin/magento config set alumiolog/general/webservice_bearer_token --lock-config</comment>
+                </field>
+                <field id="allowed_routes" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Allowed Routes</label>
+                    <comment>Routes allowed for this Magento environment (comma-separated). Use keyword 'ALL' if you want to get all routes for this Alumio environment.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Experius\AlumioLog\Api\TaskLogRepositoryInterface" type="Experius\AlumioLog\Model\TaskLogRepository"/>
+	<preference for="Experius\AlumioLog\Api\Data\TaskLogInterface" type="Experius\AlumioLog\Model\Data\TaskLog"/>
+	<preference for="Experius\AlumioLog\Api\Data\TaskLogSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Experius\AlumioLog\Model\ResourceModel\TaskLog\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">experius_alumiolog_tasklog</argument>
+			<argument name="resourceModel" xsi:type="string">Experius\AlumioLog\Model\ResourceModel\TaskLog\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="experius_alumiolog_tasklog_listing_data_source" xsi:type="string">Experius\AlumioLog\Model\ResourceModel\TaskLog\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

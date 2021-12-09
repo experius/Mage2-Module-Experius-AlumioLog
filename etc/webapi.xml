@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/experius-alumiolog/tasklog" method="POST">
+		<service class="Experius\AlumioLog\Api\TaskLogRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Experius_AlumioLog::TaskLog_save"/>
+		</resources>
+	</route>
+	<route url="/V1/experius-alumiolog/tasklog/search" method="GET">
+		<service class="Experius\AlumioLog\Api\TaskLogRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Experius_AlumioLog::TaskLog_view"/>
+		</resources>
+	</route>
+	<route url="/V1/experius-alumiolog/tasklog/:tasklogId" method="GET">
+		<service class="Experius\AlumioLog\Api\TaskLogRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Experius_AlumioLog::TaskLog_view"/>
+		</resources>
+	</route>
+	<route url="/V1/experius-alumiolog/tasklog/:tasklogId" method="PUT">
+		<service class="Experius\AlumioLog\Api\TaskLogRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Experius_AlumioLog::TaskLog_update"/>
+		</resources>
+	</route>
+	<route url="/V1/experius-alumiolog/tasklog/:tasklogId" method="DELETE">
+		<service class="Experius\AlumioLog\Api\TaskLogRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Experius_AlumioLog::TaskLog_delete"/>
+		</resources>
+	</route>
+</routes>

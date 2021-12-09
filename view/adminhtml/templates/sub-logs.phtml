@@ -1,0 +1,58 @@
+<table class="admin__control-table">
+        <tr>
+            <th>Timestamp</th>
+            <th>Status</th>
+            <th>Message</th>
+            <th>Read More</th>
+        </tr>
+        <?php $counter = 0 ?>
+        <?php $type = $block->getType() ?>
+        <?php foreach($block->getLogs() as $log) : ?>
+        <?php $counter++ ?>
+        <tr>
+            <td><?php echo $log['timestamp'] ?></td>
+            <td><?php echo $log['status'] ?></td>
+            <td><?php echo mb_strimwidth($log['message'], 0, 80, "..") ?></td>
+            <td><button id="button-modal-<?= $counter ?>-<?= $type ?>">
+                    <span><?= $block->escapeHtml(__('Click me')) ?></span>
+                </button>
+
+                <div id="modal-<?= $counter ?>-<?= $type ?>">
+                    <div class="modal-<?= $counter ?>-<?= $type ?>-body-content">
+                        <p><?php echo nl2br($log['message']) ?></p>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    require([
+                        "jquery",
+                        "Magento_Ui/js/modal/modal"
+                    ],function($, modal) {
+
+                        var options = {
+                            type: 'slide',
+                            responsive: true,
+                            title: 'Log with timestamp <?php echo $log['timestamp'] ?>',
+                            buttons: [{
+                                text: $.mage.__('Ok'),
+                                class: '',
+                                click: function () {
+                                    this.closeModal();
+                                }
+                            }]
+                        };
+
+                        var popup = modal(options, $('#modal-<?= $counter ?>-<?= $type ?>'));
+                        $("#button-modal-<?= $counter ?>-<?= $type ?>").click(function() {
+                            $('#modal-<?= $counter ?>-<?= $type ?>').modal('openModal');
+                        });
+                    });
+                </script></td>
+        </tr>
+
+        <?php endforeach; ?>
+</table>
+
+
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="experius_alumiolog_tasklog" resource="default" engine="innodb" comment="experius_alumiolog_tasklog Table">
+        <column xsi:type="int" name="entity_id" padding="6" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <column xsi:type="varchar" name="tasklog_id" nullable="false" comment="Tasklog_id" length="255"/>
+        <index referenceId="EXPERIUS_ALUMIOLOG_TASKLOG_TASKLOG_ID" indexType="btree">
+            <column name="tasklog_id"/>
+        </index>
+		<column name="entity_type" nullable="true" xsi:type="varchar" comment="entity_type" length="255"/>
+		<column name="entity_identifier" nullable="true" xsi:type="varchar" comment="entity_identifier" length="512"/>
+		<index referenceId="EXPERIUS_ALUMIOLOG_TASKLOG_ENTITY_IDENTIFIER" indexType="btree">
+			<column name="entity_identifier"/>
+		</index>
+		<column name="route" nullable="true" xsi:type="varchar" comment="route" length="255"/>
+		<index referenceId="EXPERIUS_ALUMIOLOG_TASKLOG_ROUTE" indexType="btree">
+			<column name="route"/>
+		</index>
+		<column name="status" nullable="true" xsi:type="varchar" comment="status" length="255"/>
+		<index referenceId="EXPERIUS_ALUMIOLOG_TASKLOG_STATUS" indexType="btree">
+			<column name="status"/>
+		</index>
+		<column name="created_at" nullable="true" xsi:type="datetime" comment="created_at"/>
+		<column name="updated_at" nullable="true" xsi:type="datetime" comment="updated_at"/>
+	</table>
+</schema>

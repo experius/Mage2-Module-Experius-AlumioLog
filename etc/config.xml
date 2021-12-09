@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <alumiolog>
+            <general>
+                <is_enabled>1</is_enabled>
+                <webservice_url/>
+                <webservice_bearer_token/>
+                <allowed_routes/>
+            </general>
+        </alumiolog>
+    </default>
+</config>

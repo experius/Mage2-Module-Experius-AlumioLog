@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+        <add id="Experius_AlumioLog::experius_alumiolog" title="Connector Logs" module="Experius_AlumioLog" sortOrder="40" parent="Magento_Backend::system"  resource="Magento_Backend::content"/>
+		<add id="Experius_AlumioLog::experius_alumiolog_tasklog" title="Alumio Task Log" module="Experius_AlumioLog" sortOrder="9999" resource="Magento_Backend::content" parent="Experius_AlumioLog::experius_alumiolog" action="experius_alumiolog/tasklog/index"/>
+	</menu>
+</config>
