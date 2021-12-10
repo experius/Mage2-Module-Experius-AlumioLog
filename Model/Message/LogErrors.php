@@ -9,6 +9,7 @@ use Magento\Framework\Phrase;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Experius\AlumioLog\Api\TaskLogRepositoryInterface;
+use Magento\Framework\Encryption\Encryptor;
 
 /**
  * Class LogErrors
@@ -31,27 +32,36 @@ class LogErrors implements \Magento\Framework\Notification\MessageInterface
      * @var UrlInterface
      */
     protected $urlBuilder;
+
     /**
      * @var DateTime
      */
     private $dateTime;
 
     /**
+     * @var Encryptor
+     */
+    private $encryptor;
+
+    /**
      * @param TaskLogRepositoryInterface $taskLogRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param UrlInterface $urlBuilder
+     * @param Encryptor $encryptor
      * @param DateTime $dateTime
      */
     public function __construct(
         TaskLogRepositoryInterface $taskLogRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         UrlInterface $urlBuilder,
+        Encryptor $encryptor,
         DateTime $dateTime
     ) {
         $this->taskLogRepository = $taskLogRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->urlBuilder = $urlBuilder;
         $this->dateTime = $dateTime;
+        $this->encryptor = $encryptor;
     }
 
     /**
@@ -82,7 +92,7 @@ class LogErrors implements \Magento\Framework\Notification\MessageInterface
     public function getIdentity()
     {
         // phpcs:ignore
-        return md5('ALUMIOLOG_INVALID');
+        return $this->encryptor->hash('ALUMIOLOG_INVALID', Encryptor::HASH_VERSION_MD5);
     }
 
     /**
