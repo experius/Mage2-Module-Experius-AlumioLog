@@ -81,10 +81,47 @@ class ImportLog extends Template
         $importLogArray = [];
         try {
             foreach ($this->getImportInfo() as $importLog) {
+                // Set Request Info
+                if (isset($exportLog['_source']['@fields']['ctxt_alumio-http']['request']['headers'])) {
+                    foreach ($exportLog['_source']['@fields']['ctxt_alumio-http']['request']['headers'] as $key => $header) {
+                        $key = htmlspecialchars($key, ENT_QUOTES);
+                        $header = htmlspecialchars($header, ENT_QUOTES);
+                        $requestHeaders .= "<strong>{$key}:</strong> {$header}<br/>";
+                    }
+                } else {
+                    $requestHeaders = null;
+                }
+                $requestBody = $exportLog['_source']['@fields']['ctxt_alumio-http']['request']['requestBody'] ?? null;
+                $requestMethod = $exportLog['_source']['@fields']['ctxt_alumio-http']['request']['requestMethod'] ?? null;
+                $requestUri = $exportLog['_source']['@fields']['ctxt_alumio-http']['request']['uri'] ?? null;
+
+                // Set Response info
+                if (isset($exportLog['_source']['@fields']['ctxt_alumio-http']['response']['headers'])) {
+                    foreach ($exportLog['_source']['@fields']['ctxt_alumio-http']['response']['headers'] as $key => $header) {
+                        $key = htmlspecialchars($key, ENT_QUOTES);
+                        $header = htmlspecialchars($header, ENT_QUOTES);
+                        $responseHeaders .= "<strong>{$key}:</strong> {$header}<br/>";
+                    }
+                } else {
+                    $responseHeaders = null;
+                }
+                $responseBody = $exportLog['_source']['@fields']['ctxt_alumio-http']['response']['responseBody'] ?? null;
+                $responseStatusCode = $exportLog['_source']['@fields']['ctxt_alumio-http']['response']['statusCode'] ?? null;
+                $responseReasonPhrase = $exportLog['_source']['@fields']['ctxt_alumio-http']['response']['reasonPhrase'] ?? null;
+
+                // Set everything else
                 $importLogArray[] = [
                     'message' => $importLog['_source']['@message'],
                     'status' => $importLog['_source']['@fields']['level'],
-                    'timestamp' => $importLog['_source']['@timestamp']
+                    'timestamp' => $importLog['_source']['@timestamp'],
+                    'requestHeaders' => $requestHeaders,
+                    'requestBody' => $requestBody,
+                    'requestMethod' => $requestMethod,
+                    'requestUri' => $requestUri,
+                    'responseHeaders' => $responseHeaders,
+                    'responseBody' => $responseBody,
+                    'responseStatusCode' => $responseStatusCode,
+                    'responseReasonPhrase' => $responseReasonPhrase
                 ];
             }
         } catch (\Exception $e) {

@@ -1,7 +1,7 @@
 {
     "name": "experius/module-alumiolog",
     "description": "Shows Alumio logs in Magento 2 backend",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "type": "magento2-module",
     "license": "GPL-3.0",
     "authors": [

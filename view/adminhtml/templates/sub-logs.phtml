@@ -19,7 +19,30 @@
 
                 <div id="modal-<?= $counter ?>-<?= $type ?>">
                     <div class="modal-<?= $counter ?>-<?= $type ?>-body-content">
+                        <h3>Message:</h3>
                         <p><?php echo nl2br($log['message']) ?></p>
+                        <br />
+
+                        <?php if($log['requestBody']) : ?>
+                            <h3>Request Info:</h3>
+                            <p><strong>Request Headers:</strong></p>
+                                <p style="margin-left: 40px;"><?php echo nl2br($log['requestHeaders']) ?></p>
+                            <p><strong>Request Method:</strong> <?php echo nl2br($log['requestMethod']) ?></p>
+                            <p><strong>Request Uri:</strong> <?php echo nl2br($log['requestUri']) ?></p>
+                            <p><strong>Request Body:</strong></p>
+                                <p style="margin-left: 40px"><?php echo htmlspecialchars($log['requestBody'], ENT_QUOTES) ?></p>
+                            <br />
+                        <?php endif; ?>
+
+                        <?php if($log['responseBody']) : ?>
+                            <h3>Response Info:</h3>
+                            <p><strong>Response Headers:</strong></p>
+                                <p style="margin-left: 40px;"><?php echo nl2br($log['responseHeaders']) ?></p>
+                            <p><strong>Response Answer:</strong> <?php echo nl2br($log['responseReasonPhrase']) ?></p>
+                            <p><strong>Response Status Code:</strong> <?php echo nl2br($log['responseStatusCode']) ?></p>
+                            <p><strong>Response Body:</strong></p>
+                                <p style="margin-left: 40px"><?php echo htmlspecialchars($log['responseBody'], ENT_QUOTES) ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
