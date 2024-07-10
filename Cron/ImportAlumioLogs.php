@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Experius\AlumioLog\Cron;
 
+use Experius\AlumioLog\Helper\Settings;
 use Experius\AlumioLog\Model\Importer\NewLog;
 use GuzzleHttp\Exception\GuzzleException;
 use Magento\Framework\Exception\LocalizedException;
@@ -26,17 +27,25 @@ class ImportAlumioLogs
     protected $logger;
 
     /**
+     * @var Settings
+     */
+    protected $settingsHelper;
+
+    /**
      * Constructor
      *
      * @param NewLog $newLogImporter
      * @param LoggerInterface $logger
+     * @param Settings $settingsHelper
      */
     public function __construct(
         NewLog $newLogImporter,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        Settings $settingsHelper,
     ) {
         $this->newLogImporter = $newLogImporter;
         $this->logger = $logger;
+        $this->settingsHelper = $settingsHelper;
     }
 
     /**
@@ -48,7 +57,9 @@ class ImportAlumioLogs
      */
     public function execute()
     {
-        $this->newLogImporter->importNewTaskLogs();
+        if($this->settingsHelper->getIsEnabled()) {
+            $this->newLogImporter->importNewTaskLogs();
+        }
     }
 }
 
